@@ -13,7 +13,23 @@ server.set('view engine', 'html');
 server.use(express.static(__dirname + '/public'))
 
 server.get("/", (req, res) => {
-    res.render("index")
+    res.render("index", {
+        partials: {
+            header: "partials/header",
+            footer: "partials/footer",
+            main: "partials/main/landing"
+        }
+    })
+})
+
+server.get("/login", (req, res) => {
+    res.render("index", {
+        partials: {
+            header: "partials/header",
+            footer: "partials/footer",
+            main: "partials/main/login"
+        }
+    })
 })
 
 server.get("/heartbeat", (req, res) => {
