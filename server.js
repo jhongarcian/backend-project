@@ -6,7 +6,8 @@ const PORT = process.env.PORT || 8080
 
 server.get("/heartbeat", (req, res) => {
     res.json({
-        "is" : "working"
+        "is" : "working",
+        "status" : "good"
     })
 })
 
