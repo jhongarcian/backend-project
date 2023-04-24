@@ -33,7 +33,7 @@ const validCreds = {
 
 server.get("/", (req, res) => {
     res.render("index", {
-        locals: setNavs(req.url, navs),
+        locals: setNavs(req.url, navs, !!req.session.userId),
         partials: setMainView("landing")
     })
 })
@@ -41,28 +41,28 @@ server.get("/", (req, res) => {
 server.get("/about", (req, res) => {
     console.log("pota", req.url)
     res.render("index", {
-        locals: setNavs(req.url, navs),
+        locals: setNavs(req.url, navs, !!req.session.userId),
         partials: setMainView("about")
     })
 })
 
 server.get("/contact-us", (req, res) => {
     res.render("index", {
-        locals: setNavs(req.url, navs),
+        locals: setNavs(req.url, navs, !!req.session.userId),
         partials: setMainView("contact-us")
     })
 })
 
 server.get("/gallery", (req, res) => {
     res.render("index", {
-        locals: setNavs(req.url, navs),
+        locals: setNavs(req.url, navs, !!req.session.userId),
         partials: setMainView("gallery")
     })
 })
 
 server.get("/login", (req, res) => {
     res.render("index", {
-        locals: setNavs(req.url, navs),
+        locals: setNavs(req.url, navs, !!req.session.userId),
         partials: setMainView("login")
     })
 })
@@ -84,14 +84,14 @@ server.post("/login", (req, res) => {
 
 server.get("/logout", (req, res) => {
     res.render("index", {
-        locals: setNavs(req.url, navs),
+        locals: setNavs(req.url, navs, !!req.session.userId),
         partials: setMainView("logout")
     })
 })
 
 server.get("/profile", checkAuth, (req, res) => {
     res.render("index", {
-        locals: setNavs(req.url, navs),
+        locals: setNavs(req.url, navs, !!req.session.userId),
         partials: setMainView("profile")
     })
 })
