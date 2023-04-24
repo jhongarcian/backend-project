@@ -68,7 +68,6 @@ server.post("/login", (req, res) => {
         authStatus.isAuthenticated = false
     }
     res.json(authStatus)
-    console.log(password, username)
 })
 
 server.get("/logout", (req, res) => {
