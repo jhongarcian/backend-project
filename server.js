@@ -21,10 +21,45 @@ server.get("/", (req, res) => {
     })
 })
 
+server.get("/about", (req, res) => {
+    res.render("index", {
+        locals: {navs},
+        partials: setMainView("about")
+    })
+})
+
+server.get("/contact-us", (req, res) => {
+    res.render("index", {
+        locals: {navs},
+        partials: setMainView("contact-us")
+    })
+})
+
+server.get("/gallery", (req, res) => {
+    res.render("index", {
+        locals: {navs},
+        partials: setMainView("gallery")
+    })
+})
+
 server.get("/login", (req, res) => {
     res.render("index", {
         locals: {navs},
         partials: setMainView("login")
+    })
+})
+
+server.get("/logout", (req, res) => {
+    res.render("index", {
+        locals: {navs},
+        partials: setMainView("logout")
+    })
+})
+
+server.get("/profile", (req, res) => {
+    res.render("index", {
+        locals: {navs},
+        partials: setMainView("profile")
     })
 })
 
