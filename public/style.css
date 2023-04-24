@@ -68,6 +68,10 @@ header {
   margin: 0 0 0 24px;
 }
 
+.navs a.active {
+  color: crimson;
+}
+
 .navs a:first-of-type {
   margin-left: 0;
   flex: 1;

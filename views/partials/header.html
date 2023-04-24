@@ -1,7 +1,7 @@
 <header>
   <nav class="navs y-wrap">
     ${navs.map(nav => `
-    <a href="${nav.href}">${nav.name}</a>
+    <a class="${nav.className}" href="${nav.href}">${nav.name}</a>
     `).join("")}
   </nav>
 </header>
