@@ -13,6 +13,16 @@ server.set('views', 'views');
 server.set('view engine', 'html');
 
 server.use(express.static(__dirname + '/public'))
+server.use(express.json())
+
+const authStatus = {
+    isAuthenticated: false
+}
+
+const validCreds = {
+    password: "1234",
+    username: "John"
+}
 
 server.get("/", (req, res) => {
     res.render("index", {
@@ -48,6 +58,17 @@ server.get("/login", (req, res) => {
         locals: setNavs(req.url, navs),
         partials: setMainView("login")
     })
+})
+
+server.post("/login", (req, res) => {
+    const { password, username } = req.body;
+    if(password === validCreds.password && username === validCreds.username){
+        authStatus.isAuthenticated = true
+    } else {
+        authStatus.isAuthenticated = false
+    }
+    res.json(authStatus)
+    console.log(password, username)
 })
 
 server.get("/logout", (req, res) => {
