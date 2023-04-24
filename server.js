@@ -1,12 +1,16 @@
 require("dotenv").config()
 const es6Renderer = require("express-es6-template-engine")
-const { setMainView, setNavs } = require("./utils")
+const cookieParser = require("cookie-parser")
 const express = require("express")
-const navs = require("./data/navs.json")
+const sessions = require("express-session")
 
+const { checkAuth } = require("./middleware")
+const { setMainView, setNavs } = require("./utils")
+const navs = require("./data/navs.json")
 
 const server = express()
 const PORT = process.env.PORT || 8080
+const SECRET = process.env.SECRET
 
 server.engine('html', es6Renderer);
 server.set('views', 'views');
@@ -14,10 +18,13 @@ server.set('view engine', 'html');
 
 server.use(express.static(__dirname + '/public'))
 server.use(express.json())
-
-const authStatus = {
-    isAuthenticated: false
-}
+server.use(cookieParser())
+server.use(sessions({
+    secret: SECRET,
+    saveUninitialized: true,
+    cookie: { maxAge: 30000 },
+    resave: false
+}))
 
 const validCreds = {
     password: "1234",
@@ -61,13 +68,18 @@ server.get("/login", (req, res) => {
 })
 
 server.post("/login", (req, res) => {
+    const afterLogin = {
+        isAuthenticated: false,
+        redirectTo: "/login"
+    };
+
     const { password, username } = req.body;
     if(password === validCreds.password && username === validCreds.username){
-        authStatus.isAuthenticated = true
-    } else {
-        authStatus.isAuthenticated = false
+        req.session.userId = username;
+        afterLogin.isAuthenticated = true;
+        afterLogin.redirectTo = "/profile";
     }
-    res.json(authStatus)
+    res.json(afterLogin)
 })
 
 server.get("/logout", (req, res) => {
@@ -77,7 +89,7 @@ server.get("/logout", (req, res) => {
     })
 })
 
-server.get("/profile", (req, res) => {
+server.get("/profile", checkAuth, (req, res) => {
     res.render("index", {
         locals: setNavs(req.url, navs),
         partials: setMainView("profile")

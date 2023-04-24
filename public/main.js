@@ -14,7 +14,8 @@ const handleSubmit = async (e) => {
   const data = new FormData(e.target);
   const stringified = stringifyFormData(data);
   const response = await doLogin(stringified)
-  renderForm()
+  location.href = response.redirectTo;
+  console.log(`The user is logged in: ${response.isAuthenticated}`)
 };
 
 renderForm()
