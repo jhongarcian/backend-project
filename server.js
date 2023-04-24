@@ -1,5 +1,6 @@
 require("dotenv").config()
 const es6Renderer = require("express-es6-template-engine")
+const { setMainView } = require("./utils")
 const express = require("express")
 
 
@@ -14,21 +15,13 @@ server.use(express.static(__dirname + '/public'))
 
 server.get("/", (req, res) => {
     res.render("index", {
-        partials: {
-            header: "partials/header",
-            footer: "partials/footer",
-            main: "partials/main/landing"
-        }
+        partials: setMainView("landing")
     })
 })
 
 server.get("/login", (req, res) => {
     res.render("index", {
-        partials: {
-            header: "partials/header",
-            footer: "partials/footer",
-            main: "partials/main/login"
-        }
+        partials: setMainView("login")
     })
 })
 
