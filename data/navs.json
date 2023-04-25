@@ -1,0 +1,33 @@
+[
+  {
+    "href": "/",
+    "name": "Home"
+  },
+  {
+    "href": "/gallery",
+    "name": "Gallery"
+  },
+  {
+    "href": "/about",
+    "name": "About"
+  },
+  {
+    "href": "/contact-us",
+    "name": "Contact Us"
+  },
+  {
+    "href": "/profile",
+    "isPrivate": true,
+    "name": "Profile"
+  },
+  {
+    "href": "/login",
+    "isPrivate": false,
+    "name": "Login"
+  },
+  {
+    "href": "/logout",
+    "isPrivate": true,
+    "name": "Logout"
+  }
+]
